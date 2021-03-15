@@ -12,6 +12,7 @@ class PostController extends Controller
         $posts=Post::all();
         return view('posts.index', [
                 'posts' => $posts,
+                'posts' => Post::paginate(4)
             ]);
     }
 
@@ -41,6 +42,7 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
+
     public function update(Request $request, $post)
     {
         $request=$request->all();
@@ -49,6 +51,15 @@ class PostController extends Controller
         // dd($post);
         $post->update($request);
         // dd($post);
+        return redirect()->route('posts.index');
+    }
+
+    public function destroy($post)
+    {
+        // Post::destroy($post);
+        $post= Post::find($post);
+        // dd($post);
+        $post->delete($post);
         return redirect()->route('posts.index');
     }
 }
