@@ -1,48 +1,53 @@
 <?php
 namespace App\Http\Controllers;
-class PostController extends Controller{
-    public function index(){
-        $posts=[
-            ['id'=>1,
-            'title'=>'php',
-            'description'=>'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam, blanditiis aspernatur. Delectus accusantium, fuga eaque voluptatem ipsam debitis laboriosam, eum cum ducimus reprehenderit temporibus dolor? Laborum atque dolores animi at!',
-            'posted_by'=>'Nada'
-            ],
-            ['id'=>2,
-            'title'=>'js',
-            'description'=>'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam, blanditiis aspernatur. Delectus accusantium, fuga eaque voluptatem ipsam debitis laboriosam, eum cum ducimus reprehenderit temporibus dolor? Laborum atque dolores animi at!',
-            'posted_by'=>'Ahmed'
-            ],
-        ];
-            return view('posts.index',[
-                'posts' => $posts,
-            ]);      
 
+use App\Models\Post;
+
+class PostController extends Controller
+{
+    public function index()
+    {
+        $posts=Post::all();
+        return view('posts.index', [
+                'posts' => $posts,
+            ]);
     }
 
-    public function show($post){
-        $post =[
-            ['id'=>1,
-            'title'=>'php',
-            'description'=>'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam, blanditiis aspernatur. Delectus accusantium, fuga eaque voluptatem ipsam debitis laboriosam, eum cum ducimus reprehenderit temporibus dolor? Laborum atque dolores animi at!',
-            'posted_by'=>'Nada'
-            ],
-            ['id'=>2,
-            'title'=>'js',
-            'description'=>'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam, blanditiis aspernatur. Delectus accusantium, fuga eaque voluptatem ipsam debitis laboriosam, eum cum ducimus reprehenderit temporibus dolor? Laborum atque dolores animi at!',
-            'posted_by'=>'Ahmed'
-            ],
-        ];
+    public function show($post)
+    {
+        $post =Post::find($post);
         return view('posts.show', [
             'post' => $post
         ]);
     }
-    public function create(){
+    public function create()
+    {
         return view('posts.create');
     }
-    public function store(){
-        //logic for saving in db
+    public function store()
+    {
+        $data=request()->all();
 
+        //logic for saving in db
+        Post::create($data);
+        return redirect()->route('posts.index');
+    }
+    public function edit($post)
+    {
+        $post = Post::find($post);
+        return view('posts.edit', [
+            'post' => $post
+        ]);
+    }
+
+    public function update(StorePostRequest $myRequestObject)
+    {
+        // Post::whereId($myRequestObject->all());
+
+        dd($myRequestObject);
+        Post::whereId('id', $post)->update($data);
+
+        // dd($data);
         return redirect()->route('posts.index');
     }
 }
