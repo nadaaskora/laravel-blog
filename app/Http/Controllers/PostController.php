@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\Post;
 
 class PostController extends Controller
@@ -39,15 +41,14 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
-
-    public function update(StorePostRequest $myRequestObject)
+    public function update(Request $request, $post)
     {
-        // Post::whereId($myRequestObject->all());
-
-        dd($myRequestObject);
-        Post::whereId('id', $post)->update($data);
-
-        // dd($data);
+        $request=$request->all();
+        // dd($request);
+        $post= Post::find($post);
+        // dd($post);
+        $post->update($request);
+        // dd($post);
         return redirect()->route('posts.index');
     }
 }
