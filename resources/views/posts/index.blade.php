@@ -29,7 +29,14 @@
                 <td class="col">
                     <a href="{{ route('posts.show', [ 'post' => $post['id'] ]) }}" class="btn btn-info">View</a>
                     <a href="{{ route('posts.edit', [ 'post' => $post['id'] ]) }}" class="btn btn-primary">Edit</a>
-                    <a onclick="return confirm ('Delete post?')" href="{{ route('posts.destroy', [ 'post' => $post['id'] ]) }}" class="btn btn-danger">Delete</a>
+                    <div scope="row">
+                    <form action="{{ route('posts.destroy', $post->id)}}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <input class="btn btn-danger" type="submit" value="Delete" />
+                    </form>
+                    </div>
+                    <!-- <a onclick="return confirm ('Delete post?')" href="{{ route('posts.destroy', [ 'post' => $post['id'] ]) }}" class="btn btn-danger">Delete</a> -->
                 </td>
             </tr>
 

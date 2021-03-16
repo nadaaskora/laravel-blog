@@ -3,7 +3,7 @@
 @section('content')
 <div class="row d-flex justify-content-center">
     <div class="col-10 mt-5">
-        <form method="PUT" action="{{route('posts.update',$post['id'] )}}">
+        <form method="Post" action="{{route('posts.update',$post['id'] )}}">
             @method('PUT')
             @csrf
             
