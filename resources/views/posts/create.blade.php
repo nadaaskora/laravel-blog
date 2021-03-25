@@ -16,8 +16,9 @@
             </div>
             <div class="mb-3">
                 <select class="form-control">
-                    <option>Nada</option>
-                    <option>Ahmed</option>
+            @foreach($users as $user)
+                    <option>{{$user->name}}</option>
+            @endforeach
                 </select>
             </div>
             <button type="submit" class="btn btn-success">Create</button>
