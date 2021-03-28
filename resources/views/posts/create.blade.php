@@ -1,8 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="row d-flex justify-content-center">
     <div class="col-10 mt-5">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <form method="POST" action="{{route('posts.store')}}">
             @csrf
             
